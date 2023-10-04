@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\tareaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/tarea', tareaController::class,'CrearTarea' );
+Route::get('/ver',tareaController::class,'VerTodasLasTareas');
+Route::get('/ver/{id}',tareaController::class,'VerUnaSolaTareaPorId');
