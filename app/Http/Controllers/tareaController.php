@@ -20,10 +20,17 @@ class tareaController extends Controller
         ];
         }
 
-        public function InsertarPersona(Request $request){
+        public function InsertarTareaEnLaBaseDeDatos(Request $request){
             $datos = TomarDatosDeLaTarea($request);
-            Tarea::create(
-            
-            );
+            $tarea = New Tarea();
+            $tarea = $datos -> titulo;
+            $tarea = $datos -> autor;
+            $tarea = $datos -> contenido;
+            $tarea = $datos -> estado;
+            $tarea ->save();
+        }
+        public function CrearTarea(Request $request){
+            TomarDatosDeLaTarea($request);
+            InsertarTareaEnLaBaseDeDatos($request);
         }
 }
