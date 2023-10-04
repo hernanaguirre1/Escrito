@@ -7,7 +7,7 @@ use App\Http\Models\Tarea;
 
 class tareaController extends Controller
 {
-    public function TomarDatosDeLaTarea(Request $request){
+    private function tomarDatosDeLaTarea(Request $request){
         $titulo = $request ->post('titulo');
         $autor = $request ->post('autor');
         $contenido = $request ->post('contenido');
@@ -20,7 +20,7 @@ class tareaController extends Controller
         ];
         }
 
-        public function InsertarTareaEnLaBaseDeDatos(Request $request){
+        private function insertarTareaEnLaBaseDeDatos(Request $request){
             $datos = TomarDatosDeLaTarea($request);
             $tarea = New Tarea();
             $tarea = $datos -> titulo;
@@ -30,7 +30,22 @@ class tareaController extends Controller
             $tarea ->save();
         }
         public function CrearTarea(Request $request){
-            TomarDatosDeLaTarea($request);
-            InsertarTareaEnLaBaseDeDatos($request);
+            tomarDatosDeLaTarea($request);
+            insertarTareaEnLaBaseDeDatos($request);
+        }
+
+        public function verTodasLasTareas(){
+            return Tarea::all();
+        }
+
+        public function VerUnaSolaTareaPorId($idDeTarea){
+            $tarea = Tarea::findOrFail($idDeTarea);
+            return [
+                'id' => $idDeTarea,
+                'titulo' => $tarea -> titulo,
+                'autor' => $tarea -> autor,
+                'contenido' =>  $tarea -> contenido,
+                'estado' => $tarea -> estado
+            ];
         }
 }
